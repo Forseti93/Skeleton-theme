@@ -20,25 +20,19 @@
         "collection_HH4drE": {
           "type": "collection",
           "settings": {
-            "collection": "leather",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "leather"
           }
         },
         "collection_Tnj6ta": {
           "type": "collection",
           "settings": {
-            "collection": "silver",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "silver"
           }
         },
         "collection_aY797E": {
           "type": "collection",
           "settings": {
-            "collection": "golden",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "golden"
           }
         }
       },
@@ -49,7 +43,6 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "section_label": "Collections by materials",
         "title": "Trending collections"
       }
     },
@@ -59,25 +52,19 @@
         "collection_iiWRjC": {
           "type": "collection",
           "settings": {
-            "collection": "anchor",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "anchor"
           }
         },
         "collection_Pr7Wx6": {
           "type": "collection",
           "settings": {
-            "collection": "dreamcatcher",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "dreamcatcher"
           }
         },
         "collection_fX36XC": {
           "type": "collection",
           "settings": {
-            "collection": "bird",
-            "collection_title": "",
-            "product_override": ""
+            "collection": "bird"
           }
         }
       },
@@ -88,7 +75,6 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "section_label": "Search by figures",
         "title": "Top rated collections"
       }
     }
