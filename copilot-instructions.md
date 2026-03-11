@@ -1,0 +1,1 @@
+C:/Users/serge/Documents/IT/Shopify/Test tasks/3 colections and their's top product section/Skeleton theme/skeleton theme/AGENTS.md

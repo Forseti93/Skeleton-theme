@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "hello-world",
+      "disabled": true,
+      "settings": {}
+    },
+    "best_sellers_zMEbQk": {
+      "type": "best-sellers",
+      "blocks": {
+        "collection_HH4drE": {
+          "type": "collection",
+          "settings": {
+            "collection": "leather",
+            "collection_title": "",
+            "product_override": ""
+          }
+        },
+        "collection_Tnj6ta": {
+          "type": "collection",
+          "settings": {
+            "collection": "silver",
+            "collection_title": "",
+            "product_override": ""
+          }
+        },
+        "collection_aY797E": {
+          "type": "collection",
+          "settings": {
+            "collection": "golden",
+            "collection_title": "",
+            "product_override": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_HH4drE",
+        "collection_Tnj6ta",
+        "collection_aY797E"
+      ],
+      "name": "Best sellers",
+      "settings": {
+        "section_label": "Collections by materials",
+        "title": "Trending collections"
+      }
+    },
+    "best_sellers_YTzUyz": {
+      "type": "best-sellers",
+      "blocks": {
+        "collection_iiWRjC": {
+          "type": "collection",
+          "settings": {
+            "collection": "anchor",
+            "collection_title": "",
+            "product_override": ""
+          }
+        },
+        "collection_Pr7Wx6": {
+          "type": "collection",
+          "settings": {
+            "collection": "dreamcatcher",
+            "collection_title": "",
+            "product_override": ""
+          }
+        },
+        "collection_fX36XC": {
+          "type": "collection",
+          "settings": {
+            "collection": "bird",
+            "collection_title": "",
+            "product_override": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_iiWRjC",
+        "collection_Pr7Wx6",
+        "collection_fX36XC"
+      ],
+      "name": "Best sellers",
+      "settings": {
+        "section_label": "Search by figures",
+        "title": "Top rated collections"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "best_sellers_zMEbQk",
+    "best_sellers_YTzUyz"
+  ]
+}

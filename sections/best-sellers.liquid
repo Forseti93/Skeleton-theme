@@ -1,0 +1,199 @@
+{{ 'best-sellers.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'best-sellers.js' | asset_url }}" defer="defer"></script>
+
+<section class="bs-section" data-section-id="{{ section.id }}">
+  <div class="bs-container">
+    <!-- Left / Top Column: Headers & Tabs -->
+    <div class="bs-left-column">
+      <div class="bs-header">
+        <span class="bs-label">{{ section.settings.label }}</span>
+        <h2 class="bs-title">{{ section.settings.title }}</h2>
+      </div>
+
+      <div class="bs-tabs">
+        {% for block in section.blocks %}
+          {% assign collection = block.settings.collection %}
+          {% assign tab_title = block.settings.title | default: collection.title | default: 'Collection' %}
+
+          <button
+            class="bs-tab-btn {% if forloop.first %}is-active{% endif %}"
+            data-target="bs-pane-{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="bs-tab-text">{{ tab_title }}</span>
+            <span class="bs-tab-icon">
+              <!-- Arrow Right SVG -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Right / Bottom Column: Product Content -->
+    <div class="bs-right-column">
+      <div class="bs-panels">
+        {% for block in section.blocks %}
+          {% assign collection = block.settings.collection %}
+          {% assign product = block.settings.product | default: collection.products.first %}
+
+          <div class="bs-pane {% if forloop.first %}is-active{% endif %}" id="bs-pane-{{ block.id }}">
+            {% if product != blank %}
+              <div class="bs-product-card">
+                <!-- Product Image Linked -->
+                <a href="{{ product.url }}" class="bs-product-img-wrapper">
+                  {% if product.featured_image != blank %}
+                    <picture>
+                      <!-- Mobile responsive sizes -->
+                      <source
+                        media="(max-width: 767px)"
+                        srcset="{{ product.featured_image | image_url: width: 343 }} 1x, {{ product.featured_image | image_url: width: 686 }} 2x"
+                      >
+                      <!-- Desktop responsive sizes -->
+                      <source
+                        media="(min-width: 768px)"
+                        srcset="{{ product.featured_image | image_url: width: 816 }} 1x, {{ product.featured_image | image_url: width: 1632 }} 2x"
+                      >
+                      <img
+                        src="{{ product.featured_image | image_url: width: 816 }}"
+                        alt="{{ product.title | escape }}"
+                        loading="lazy"
+                        class="bs-product-img"
+                      >
+                    </picture>
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'bs-product-img placeholder-svg' }}
+                  {% endif %}
+                </a>
+
+                <!-- Tags -->
+                {% if product.tags.size > 0 %}
+                  <div class="bs-tags">
+                    {% for tag in product.tags limit: 3 %}
+                      {% assign downcase_tag = tag | downcase %}
+                      <span class="bs-tag {% if downcase_tag contains 'sale' %}bs-tag-sale{% endif %}">
+                        {{ tag }}
+                      </span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                <!-- Actions (Wishlist & Quick Add) -->
+                <div class="bs-actions">
+                  <button
+                    class="bs-action-btn"
+                    data-wishlist-btn
+                    data-product-name="{{ product.title | escape }}"
+                    aria-label="Add to wishlist"
+                  >
+                    <!-- Heart SVG -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </button>
+
+                  {% assign first_variant = product.selected_or_first_available_variant %}
+                  <button
+                    class="bs-action-btn bs-quick-add"
+                    data-quick-add-btn
+                    data-variant-id="{{ first_variant.id }}"
+                    aria-label="Quick add"
+                    {% unless product.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    <!-- Eye SVG -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Info Box -->
+                <div class="bs-info-box">
+                  <a href="{{ product.url }}" class="bs-product-title">{{ product.title }}</a>
+                  <div class="bs-price-wrapper">
+                    <span class="bs-price-current">{{ product.price | money }}</span>
+                    {% if product.compare_at_price > product.price %}
+                      <span class="bs-price-compare">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="bs-product-card bs-empty-state">
+                {{ 'collection-1' | placeholder_svg_tag: 'bs-product-img placeholder-svg' }}
+                <div class="bs-info-box">
+                  <span class="bs-product-title">Select a product</span>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wishlist Modal Structure -->
+<div id="bs-wishlist-modal" class="bs-modal" aria-hidden="true">
+  <div class="bs-modal-overlay" data-modal-close></div>
+  <div class="bs-modal-content">
+    <button class="bs-modal-close-btn" data-modal-close aria-label="Close modal">&times;</button>
+    <p id="bs-modal-text" class="bs-modal-text"></p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Best Sellers",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Best sellers"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Trending Products"
+    }
+  ],
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection title",
+          "info": "Overrides the default collection name."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Overrides the default first product of the collection."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers"
+    }
+  ]
+}
+{% endschema %}
