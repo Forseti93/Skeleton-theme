@@ -1,3 +1,15 @@
+#Credentials
+Store Admin: https://admin.shopify.com/store/collections-and-top-product-section/themes
+Store Demo: https://collections-and-top-product-section.myshopify.com/
+Password: deitoh
+
+#Time Spent
+I used the bare minimum theme — shopify theme init.
+The total time spent was 4.5 hours.
+<img width="528" height="153" alt="image" src="https://github.com/user-attachments/assets/38365eff-0782-4e71-9d8c-d834cae6c29e" />
+
+###shopify theme init - default README below###
+
 <h1 align="center" style="position: relative;">
   <br>
     <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
