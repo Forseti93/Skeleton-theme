@@ -97,7 +97,8 @@ body {
     calc(100% - var(--page-margin) * 2)
   );
   --content-margin: minmax(var(--page-margin), 1fr);
-  --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
+  --content-grid: var(--content-margin) var(--content-width)
+    var(--content-margin);
 
   /* This is required to make <img> elements work as background images */
   position: relative;
@@ -114,4 +115,28 @@ body {
 /* Child elements that use the full-width utility class span the entire viewport. */
 .shopify-section > .full-width {
   grid-column: 1 / -1;
+}
+
+/** Global Cart Counter Styles */
+.cart-count-bubble {
+  position: absolute;
+  bottom: -4px;
+  right: -8px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 11px;
+  font-family: var(--font-primary--family), sans-serif;
+  font-weight: 500;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.cart-count-bubble.hidden {
+  display: none;
 }
