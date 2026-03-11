@@ -25,7 +25,7 @@ body.bs-scroll-lock {
 .bs-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   margin: 0 auto;
   max-width: 1680px;
 }
@@ -132,6 +132,9 @@ body.bs-scroll-lock {
   border-radius: 16px;
   overflow: hidden;
   background-color: #f5f5f5;
+  max-height: 500px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /* Force image to cover completely */
@@ -338,7 +341,18 @@ body.bs-scroll-lock {
   .bs-container {
     flex-direction: row;
     align-items: center;
-    gap: 64px;
+    gap: 80px;
+    justify-content: space-between;
+  }
+
+  .bs-product-card {
+    max-height: unset;
+    max-width: unset;
+    max-height: 818px;
+    max-width: 818px;
+    height: 100%;
+    width: 100%;
+    margin: 0;
   }
 
   .bs-header {
@@ -353,7 +367,8 @@ body.bs-scroll-lock {
 
   .bs-left-column {
     flex: 1;
-    max-width: 688px;
+    max-width: 754px;
+    padding-left: 64px;
   }
 
   .bs-right-column {
@@ -384,5 +399,20 @@ body.bs-scroll-lock {
 
   .bs-product-title {
     max-width: 60%;
+  }
+
+  .bs-tags {
+    top: 16px;
+    left: 16px;
+  }
+
+  .bs-actions {
+    top: 16px;
+    right: 16px;
+  }
+
+  .bs-action-btn {
+    width: 46px;
+    height: 46px;
   }
 }

@@ -20,19 +20,25 @@
         "collection_HH4drE": {
           "type": "collection",
           "settings": {
-            "collection": "leather"
+            "collection": "leather",
+            "title": "",
+            "product": ""
           }
         },
         "collection_Tnj6ta": {
           "type": "collection",
           "settings": {
-            "collection": "silver"
+            "collection": "silver",
+            "title": "",
+            "product": ""
           }
         },
         "collection_aY797E": {
           "type": "collection",
           "settings": {
-            "collection": "golden"
+            "collection": "golden",
+            "title": "",
+            "product": ""
           }
         }
       },
@@ -43,7 +49,12 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "title": "Trending collections"
+        "label": "Best sellers",
+        "title": "Trending Products",
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
       }
     },
     "best_sellers_YTzUyz": {
@@ -52,19 +63,25 @@
         "collection_iiWRjC": {
           "type": "collection",
           "settings": {
-            "collection": "anchor"
+            "collection": "anchor",
+            "title": "",
+            "product": ""
           }
         },
         "collection_Pr7Wx6": {
           "type": "collection",
           "settings": {
-            "collection": "dreamcatcher"
+            "collection": "dreamcatcher",
+            "title": "",
+            "product": ""
           }
         },
         "collection_fX36XC": {
           "type": "collection",
           "settings": {
-            "collection": "bird"
+            "collection": "bird",
+            "title": "",
+            "product": ""
           }
         }
       },
@@ -75,7 +92,12 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "title": "Top rated collections"
+        "label": "Best sellers",
+        "title": "Top rated collections",
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
       }
     }
   },
