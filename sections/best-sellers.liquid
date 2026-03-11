@@ -29,11 +29,7 @@
           {% assign collection = block.settings.collection %}
           {% assign tab_title = block.settings.title | default: collection.title | default: 'Collection' %}
 
-          <button
-            class="bs-tab-btn {% if forloop.first %}is-active{% endif %}"
-            data-target="bs-pane-{{ block.id }}"
-            {{ block.shopify_attributes }}
-          >
+          <button class="bs-tab-btn {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
             <span class="bs-tab-text">{{ tab_title }}</span>
             <span class="bs-tab-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,19 +48,17 @@
           {% assign collection = block.settings.collection %}
           {% assign product = block.settings.product | default: collection.products.first %}
 
-          <div class="bs-pane {% if forloop.first %}is-active{% endif %}" id="bs-pane-{{ block.id }}">
+          <div class="bs-pane {% if forloop.first %}is-active{% endif %}">
             {% if product != blank %}
               <div class="bs-product-card">
                 <!-- Product Image Linked -->
                 <a href="{{ product.url }}" class="bs-product-img-wrapper">
                   {% if product.featured_image != blank %}
                     <picture>
-                      <!-- Mobile responsive sizes -->
                       <source
                         media="(max-width: 767px)"
                         srcset="{{ product.featured_image | image_url: width: 343 }} 1x, {{ product.featured_image | image_url: width: 686 }} 2x"
                       >
-                      <!-- Desktop responsive sizes -->
                       <source
                         media="(min-width: 768px)"
                         srcset="{{ product.featured_image | image_url: width: 816 }} 1x, {{ product.featured_image | image_url: width: 1632 }} 2x"
@@ -87,7 +81,6 @@
                     {%- assign sorted_tags = '' -%}
                     {%- assign tag_count = 0 -%}
 
-                    {%- comment -%} 1. Priority: Sale {%- endcomment -%}
                     {%- for tag in product.tags -%}
                       {%- assign downcase_tag = tag | downcase -%}
                       {%- if downcase_tag contains 'sale' and tag_count < 3 -%}
@@ -96,7 +89,6 @@
                       {%- endif -%}
                     {%- endfor -%}
 
-                    {%- comment -%} 2. Priority: New {%- endcomment -%}
                     {%- for tag in product.tags -%}
                       {%- assign downcase_tag = tag | downcase -%}
                       {%- if downcase_tag contains 'new' and tag_count < 3 -%}
@@ -105,7 +97,6 @@
                       {%- endif -%}
                     {%- endfor -%}
 
-                    {%- comment -%} 3. Priority: Everything Else {%- endcomment -%}
                     {%- for tag in product.tags -%}
                       {%- assign downcase_tag = tag | downcase -%}
                       {%- unless downcase_tag contains 'sale' or downcase_tag contains 'new' -%}
@@ -116,7 +107,6 @@
                       {%- endunless -%}
                     {%- endfor -%}
 
-                    {%- comment -%} Render Final Tags {%- endcomment -%}
                     {%- assign tags_to_render = sorted_tags | split: '|||' -%}
                     {%- for tag in tags_to_render -%}
                       {%- if tag != blank -%}
@@ -184,12 +174,12 @@
     </div>
   </div>
 
-  <!-- Wishlist Modal Structure (Moved inside bs-section to inherit CSS vars) -->
-  <div id="bs-wishlist-modal" class="bs-modal" aria-hidden="true">
+  <!-- Wishlist Modal Structure -->
+  <div class="bs-modal" aria-hidden="true">
     <div class="bs-modal-overlay" data-modal-close></div>
     <div class="bs-modal-content">
       <button class="bs-modal-close-btn" data-modal-close aria-label="Close modal">&times;</button>
-      <p id="bs-modal-text" class="bs-modal-text"></p>
+      <p class="bs-modal-text"></p>
     </div>
   </div>
 </section>
