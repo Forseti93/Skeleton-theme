@@ -1,7 +1,21 @@
 {{ 'best-sellers.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'best-sellers.js' | asset_url }}" defer="defer"></script>
 
-<section class="bs-section" data-section-id="{{ section.id }}">
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="bs-section section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
   <div class="bs-container">
     <!-- Left / Top Column: Headers & Tabs -->
     <div class="bs-left-column">
@@ -22,7 +36,6 @@
           >
             <span class="bs-tab-text">{{ tab_title }}</span>
             <span class="bs-tab-icon">
-              <!-- Arrow Right SVG -->
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -68,15 +81,51 @@
                   {% endif %}
                 </a>
 
-                <!-- Tags -->
+                <!-- Tags Sorting Logic -->
                 {% if product.tags.size > 0 %}
                   <div class="bs-tags">
-                    {% for tag in product.tags limit: 3 %}
-                      {% assign downcase_tag = tag | downcase %}
-                      <span class="bs-tag {% if downcase_tag contains 'sale' %}bs-tag-sale{% endif %}">
-                        {{ tag }}
-                      </span>
-                    {% endfor %}
+                    {%- assign sorted_tags = '' -%}
+                    {%- assign tag_count = 0 -%}
+
+                    {%- comment -%} 1. Priority: Sale {%- endcomment -%}
+                    {%- for tag in product.tags -%}
+                      {%- assign downcase_tag = tag | downcase -%}
+                      {%- if downcase_tag contains 'sale' and tag_count < 3 -%}
+                        {%- assign sorted_tags = sorted_tags | append: tag | append: '|||' -%}
+                        {%- assign tag_count = tag_count | plus: 1 -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- comment -%} 2. Priority: New {%- endcomment -%}
+                    {%- for tag in product.tags -%}
+                      {%- assign downcase_tag = tag | downcase -%}
+                      {%- if downcase_tag contains 'new' and tag_count < 3 -%}
+                        {%- assign sorted_tags = sorted_tags | append: tag | append: '|||' -%}
+                        {%- assign tag_count = tag_count | plus: 1 -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- comment -%} 3. Priority: Everything Else {%- endcomment -%}
+                    {%- for tag in product.tags -%}
+                      {%- assign downcase_tag = tag | downcase -%}
+                      {%- unless downcase_tag contains 'sale' or downcase_tag contains 'new' -%}
+                        {%- if tag_count < 3 -%}
+                          {%- assign sorted_tags = sorted_tags | append: tag | append: '|||' -%}
+                          {%- assign tag_count = tag_count | plus: 1 -%}
+                        {%- endif -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+
+                    {%- comment -%} Render Final Tags {%- endcomment -%}
+                    {%- assign tags_to_render = sorted_tags | split: '|||' -%}
+                    {%- for tag in tags_to_render -%}
+                      {%- if tag != blank -%}
+                        {%- assign downcase_tag = tag | downcase -%}
+                        <span class="bs-tag {% if downcase_tag contains 'sale' %}bs-tag-sale{% endif %}">
+                          {{ tag }}
+                        </span>
+                      {%- endif -%}
+                    {%- endfor -%}
                   </div>
                 {% endif %}
 
@@ -88,7 +137,6 @@
                     data-product-name="{{ product.title | escape }}"
                     aria-label="Add to wishlist"
                   >
-                    <!-- Heart SVG -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="currentColor" stroke-width="1.5"/>
                     </svg>
@@ -104,7 +152,6 @@
                       disabled
                     {% endunless %}
                   >
-                    <!-- Eye SVG -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
@@ -136,16 +183,16 @@
       </div>
     </div>
   </div>
-</section>
 
-<!-- Wishlist Modal Structure -->
-<div id="bs-wishlist-modal" class="bs-modal" aria-hidden="true">
-  <div class="bs-modal-overlay" data-modal-close></div>
-  <div class="bs-modal-content">
-    <button class="bs-modal-close-btn" data-modal-close aria-label="Close modal">&times;</button>
-    <p id="bs-modal-text" class="bs-modal-text"></p>
+  <!-- Wishlist Modal Structure (Moved inside bs-section to inherit CSS vars) -->
+  <div id="bs-wishlist-modal" class="bs-modal" aria-hidden="true">
+    <div class="bs-modal-overlay" data-modal-close></div>
+    <div class="bs-modal-content">
+      <button class="bs-modal-close-btn" data-modal-close aria-label="Close modal">&times;</button>
+      <p id="bs-modal-text" class="bs-modal-text"></p>
+    </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -162,6 +209,54 @@
       "id": "title",
       "label": "Title",
       "default": "Trending Products"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Paddings"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 80,
+      "label": "Top padding",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 80,
+      "label": "Bottom padding",
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Paddings"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 40,
+      "label": "Top padding",
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 40,
+      "label": "Bottom padding",
+      "unit": "px"
     }
   ],
   "max_blocks": 3,
