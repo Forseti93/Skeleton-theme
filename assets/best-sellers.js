@@ -1,22 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Find all instances of the Best Sellers section on the page
   const bsSections = document.querySelectorAll(".bs-section");
 
   bsSections.forEach((section) => {
-    // --- 1. Tabs Logic (Isolated by Index) ---
+    // --- 1. Tabs Logic ---
     const tabButtons = section.querySelectorAll(".bs-tab-btn");
     const tabPanes = section.querySelectorAll(".bs-pane");
 
-    // We use the index of the button to find the matching pane inside THIS section
     tabButtons.forEach((button, index) => {
       button.addEventListener("click", (e) => {
         if (button.classList.contains("is-active")) return;
 
-        // Strip active classes strictly from elements within THIS section
         tabButtons.forEach((btn) => btn.classList.remove("is-active"));
         tabPanes.forEach((pane) => pane.classList.remove("is-active"));
 
-        // Add active class to the clicked button and its corresponding pane
         button.classList.add("is-active");
         if (tabPanes[index]) {
           tabPanes[index].classList.add("is-active");
@@ -24,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // --- 2. Wishlist Modal Logic (Isolated) ---
+    // --- 2. Wishlist Modal Logic ---
     const wishlistButtons = section.querySelectorAll("[data-wishlist-btn]");
     const modal = section.querySelector(".bs-modal");
     const modalText = section.querySelector(".bs-modal-text");
@@ -147,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!response.ok) throw new Error("Network response was not ok");
           const data = await response.json();
 
-          // Dispatch standard events for theme drawer & our global listener in header.liquid
           document.dispatchEvent(
             new CustomEvent("cart:updated", { bubbles: true }),
           );

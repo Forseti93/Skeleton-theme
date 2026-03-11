@@ -17,7 +17,6 @@
 
 <section class="bs-section section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
   <div class="bs-container">
-    <!-- Left / Top Column: Headers & Tabs -->
     <div class="bs-left-column">
       <div class="bs-header">
         <span class="bs-label">{{ section.settings.label }}</span>
@@ -41,7 +40,6 @@
       </div>
     </div>
 
-    <!-- Right / Bottom Column: Product Content -->
     <div class="bs-right-column">
       <div class="bs-panels">
         {% for block in section.blocks %}
@@ -51,7 +49,6 @@
           <div class="bs-pane {% if forloop.first %}is-active{% endif %}">
             {% if product != blank %}
               <div class="bs-product-card">
-                <!-- Product Image Linked -->
                 <a href="{{ product.url }}" class="bs-product-img-wrapper">
                   {% if product.featured_image != blank %}
                     <picture>
@@ -75,7 +72,6 @@
                   {% endif %}
                 </a>
 
-                <!-- Tags Sorting Logic -->
                 {% if product.tags.size > 0 %}
                   <div class="bs-tags">
                     {%- assign sorted_tags = '' -%}
@@ -119,7 +115,6 @@
                   </div>
                 {% endif %}
 
-                <!-- Actions (Wishlist & Quick Add) -->
                 <div class="bs-actions">
                   <button
                     class="bs-action-btn"
@@ -149,7 +144,6 @@
                   </button>
                 </div>
 
-                <!-- Info Box -->
                 <div class="bs-info-box">
                   <a href="{{ product.url }}" class="bs-product-title">{{ product.title }}</a>
                   <div class="bs-price-wrapper">
@@ -174,7 +168,6 @@
     </div>
   </div>
 
-  <!-- Wishlist Modal Structure -->
   <div class="bs-modal" aria-hidden="true">
     <div class="bs-modal-overlay" data-modal-close></div>
     <div class="bs-modal-content">
