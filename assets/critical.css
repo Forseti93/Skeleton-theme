@@ -140,3 +140,9 @@ body {
 .cart-count-bubble.hidden {
   display: none;
 }
+
+@media screen and (max-width: 750px) {
+  .header__menu {
+    display: none !important;
+  }
+}

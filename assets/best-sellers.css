@@ -9,8 +9,6 @@
 
   font-family: "Inter", sans-serif;
   width: 100%;
-  padding-left: 16px;
-  padding-right: 16px;
   box-sizing: border-box;
 }
 
@@ -36,9 +34,7 @@ body.bs-scroll-lock {
 .bs-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  text-align: center;
   margin-bottom: 24px;
 }
 
@@ -157,8 +153,8 @@ body.bs-scroll-lock {
 /* --- Overlays: Tags, Actions, Info Box --- */
 .bs-tags {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 8px;
+  left: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -170,6 +166,7 @@ body.bs-scroll-lock {
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
+  width: fit-content;
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
   border-radius: 8px;
@@ -189,8 +186,8 @@ body.bs-scroll-lock {
 
 .bs-actions {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 8px;
+  right: 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -201,8 +198,8 @@ body.bs-scroll-lock {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
   border-radius: 12px;
@@ -221,21 +218,21 @@ body.bs-scroll-lock {
 }
 
 .bs-action-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 }
 
 .bs-info-box {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
   background: var(--color-white);
   border-radius: 16px;
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   z-index: 2;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -338,11 +335,6 @@ body.bs-scroll-lock {
 
 /* --- Desktop Layout Overrides --- */
 @media (min-width: 1024px) {
-  .bs-section {
-    padding-left: 64px;
-    padding-right: 64px;
-  }
-
   .bs-container {
     flex-direction: row;
     align-items: center;
