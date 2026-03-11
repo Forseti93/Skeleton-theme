@@ -16,7 +16,6 @@
   box-sizing: border-box;
 }
 
-/* Scroll Lock utility to prevent UI jumping */
 html.bs-scroll-lock,
 body.bs-scroll-lock {
   overflow: hidden !important;

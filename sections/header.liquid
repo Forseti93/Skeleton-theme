@@ -19,7 +19,6 @@
     <a href="{{ routes.cart_url }}" class="header__cart">
       {{ 'icon-cart.svg' | inline_asset_content }}
 
-      <!-- Cart Bubble -->
       <span id="CartCount" class="cart-count-bubble {% if cart.item_count == 0 %}hidden{% endif %}">
         {%- if cart.item_count > 99 -%}
           **
@@ -32,7 +31,6 @@
 </header>
 
 <script>
-  // Global Cart Event Listener
   document.addEventListener('cart:updated', async () => {
     try {
       const res = await fetch(`${window.Shopify?.routes?.root || '/'}cart.js`);
