@@ -92,7 +92,7 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "label": "Best sellers",
+        "label": "Clients choice",
         "title": "Top rated collections",
         "padding_top_desktop": 80,
         "padding_bottom_desktop": 80,
