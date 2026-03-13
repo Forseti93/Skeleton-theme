@@ -49,7 +49,7 @@
       ],
       "name": "Best sellers",
       "settings": {
-        "label": "",
+        "label": "Test",
         "title": "Trending Products",
         "padding_top_desktop": 80,
         "padding_bottom_desktop": 80,
